@@ -1,0 +1,77 @@
+.animated-temperature {
+  display: inline-flex;
+  align-items: flex-start;
+  font-weight: 300;
+  position: relative;
+  transition: color 0.5s ease;
+}
+
+.animated-temperature.animating .temp-digit {
+  animation: digitPop 0.3s ease-out;
+}
+
+@keyframes digitPop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.temp-digits {
+  display: inline-flex;
+}
+
+.temp-digit {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.temp-unit {
+  font-size: 0.4em;
+  margin-left: 0.1em;
+  opacity: 0.8;
+  font-weight: 400;
+}
+
+/* Temperature colors */
+.animated-temperature.cold {
+  color: #60a5fa;
+  text-shadow: 0 0 30px rgba(96, 165, 250, 0.5);
+}
+
+.animated-temperature.cool {
+  color: #34d399;
+  text-shadow: 0 0 30px rgba(52, 211, 153, 0.5);
+}
+
+.animated-temperature.mild {
+  color: #fbbf24;
+  text-shadow: 0 0 30px rgba(251, 191, 36, 0.5);
+}
+
+.animated-temperature.warm {
+  color: #fb923c;
+  text-shadow: 0 0 30px rgba(251, 146, 60, 0.5);
+}
+
+.animated-temperature.hot {
+  color: #ef4444;
+  text-shadow: 0 0 30px rgba(239, 68, 68, 0.5);
+}
+
+/* Glow effect on hover */
+.animated-temperature:hover {
+  filter: brightness(1.1);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .temp-unit {
+    font-size: 0.5em;
+  }
+}

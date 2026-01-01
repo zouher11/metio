@@ -1,0 +1,361 @@
+.animated-weather-icon {
+  width: 120px;
+  height: 120px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==================== SUN ==================== */
+.icon-sun {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  animation: sunFloat 4s ease-in-out infinite;
+}
+
+@keyframes sunFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.sun-body {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #fde047 0%, #fbbf24 100%);
+  border-radius: 50%;
+  box-shadow: 
+    0 0 30px rgba(251, 191, 36, 0.6),
+    0 0 60px rgba(251, 191, 36, 0.3);
+  animation: sunPulse 2s ease-in-out infinite;
+}
+
+@keyframes sunPulse {
+  0%, 100% { 
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 0 30px rgba(251, 191, 36, 0.6), 0 0 60px rgba(251, 191, 36, 0.3);
+  }
+  50% { 
+    transform: translate(-50%, -50%) scale(1.05);
+    box-shadow: 0 0 40px rgba(251, 191, 36, 0.8), 0 0 80px rgba(251, 191, 36, 0.4);
+  }
+}
+
+.sun-rays-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  animation: raysRotate 20s linear infinite;
+}
+
+@keyframes raysRotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.ray {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 30px;
+  background: linear-gradient(to top, rgba(251, 191, 36, 0.8), transparent);
+  transform-origin: center bottom;
+  animation: rayPulse 2s ease-in-out infinite;
+}
+
+@keyframes rayPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* ==================== MOON ==================== */
+.icon-moon {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  animation: moonFloat 5s ease-in-out infinite;
+}
+
+@keyframes moonFloat {
+  0%, 100% { transform: translateY(0) rotate(-10deg); }
+  50% { transform: translateY(-3px) rotate(-5deg); }
+}
+
+.moon-body {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 50%, #c0c0c0 100%);
+  border-radius: 50%;
+  box-shadow: 
+    0 0 20px rgba(255, 255, 255, 0.3),
+    inset -8px -8px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.moon-crater {
+  position: absolute;
+  background: rgba(150, 150, 150, 0.3);
+  border-radius: 50%;
+}
+
+.moon-crater.c1 { width: 10px; height: 10px; top: 10px; left: 15px; }
+.moon-crater.c2 { width: 6px; height: 6px; top: 28px; left: 30px; }
+.moon-crater.c3 { width: 5px; height: 5px; top: 35px; left: 15px; }
+
+.icon-moon .moon-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+  animation: moonGlow 3s ease-in-out infinite;
+}
+
+@keyframes moonGlow {
+  0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+/* ==================== STARS ==================== */
+.icon-stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.icon-star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 4px white;
+  animation: starTwinkle 1.5s ease-in-out infinite;
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+/* ==================== CLOUDS ==================== */
+.icon-clouds {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.icon-cloud {
+  position: absolute;
+  animation: cloudDrift 4s ease-in-out infinite;
+}
+
+.icon-cloud.cloud-1 {
+  top: 20%;
+  left: 10%;
+}
+
+.icon-cloud.cloud-2 {
+  top: 10%;
+  left: 40%;
+  transform: scale(0.7);
+  animation-delay: 1s;
+  opacity: 0.7;
+}
+
+@keyframes cloudDrift {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(10px); }
+}
+
+.cloud-puff {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cloud-puff.p1 {
+  width: 35px;
+  height: 25px;
+  border-radius: 12px;
+}
+
+.cloud-puff.p2 {
+  width: 20px;
+  height: 20px;
+  top: -10px;
+  left: 5px;
+}
+
+.cloud-puff.p3 {
+  width: 25px;
+  height: 25px;
+  top: -8px;
+  left: 18px;
+}
+
+/* Dark clouds for rain/storm */
+.weather-icon-rain .cloud-puff,
+.weather-icon-thunderstorm .cloud-puff {
+  background: linear-gradient(180deg, #94a3b8 0%, #64748b 100%);
+}
+
+.weather-icon-snow .cloud-puff {
+  background: linear-gradient(180deg, #e2e8f0 0%, #cbd5e1 100%);
+}
+
+/* ==================== RAIN ==================== */
+.icon-rain {
+  position: absolute;
+  bottom: 15%;
+  left: 0;
+  width: 100%;
+  height: 50%;
+}
+
+.icon-drop {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 10px;
+  background: linear-gradient(to bottom, transparent, rgba(96, 165, 250, 0.8));
+  border-radius: 0 0 2px 2px;
+  animation: dropFall 0.8s linear infinite;
+}
+
+@keyframes dropFall {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(40px); opacity: 0; }
+}
+
+/* ==================== SNOW ==================== */
+.icon-snow {
+  position: absolute;
+  bottom: 15%;
+  left: 0;
+  width: 100%;
+  height: 50%;
+}
+
+.icon-flake {
+  position: absolute;
+  top: 0;
+  color: white;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+  animation: flakeFall 2s linear infinite;
+}
+
+@keyframes flakeFall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(40px) rotate(180deg); opacity: 0; }
+}
+
+/* ==================== LIGHTNING ==================== */
+.icon-lightning {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: lightningFlash 3s ease-in-out infinite;
+}
+
+.lightning-bolt {
+  width: 30px;
+  height: 30px;
+  color: #fde047;
+  filter: drop-shadow(0 0 10px rgba(253, 224, 71, 0.8));
+}
+
+@keyframes lightningFlash {
+  0%, 90%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+  92%, 94% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+  93% { opacity: 0.3; }
+}
+
+/* ==================== FOG ==================== */
+.icon-fog {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+}
+
+.fog-line {
+  height: 4px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  border-radius: 2px;
+  animation: fogDrift 3s ease-in-out infinite;
+}
+
+.fog-line:nth-child(1) { width: 80%; margin-left: 10%; }
+.fog-line:nth-child(2) { width: 60%; margin-left: 20%; animation-delay: 0.5s; }
+.fog-line:nth-child(3) { width: 70%; margin-left: 5%; animation-delay: 1s; }
+.fog-line:nth-child(4) { width: 50%; margin-left: 25%; animation-delay: 1.5s; }
+
+@keyframes fogDrift {
+  0%, 100% { opacity: 0.4; transform: translateX(0); }
+  50% { opacity: 0.8; transform: translateX(10px); }
+}
+
+/* Night mode adjustments */
+.animated-weather-icon.night .cloud-puff {
+  background: linear-gradient(180deg, #475569 0%, #334155 100%);
+}
+
+.animated-weather-icon.night .fog-line {
+  background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.5), transparent);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .animated-weather-icon {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .icon-sun {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .sun-body {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .sun-rays-container {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .ray {
+    height: 25px;
+  }
+  
+  .moon-body {
+    width: 40px;
+    height: 40px;
+  }
+}

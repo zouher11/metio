@@ -1,0 +1,813 @@
+/* Weather Effects - Main Container */
+.weather-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  transition: background 2s ease-in-out;
+}
+
+/* Gradient Overlay for smooth transitions */
+.gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.3;
+  background: radial-gradient(ellipse at top, transparent 0%, rgba(0,0,0,0.3) 100%);
+}
+
+/* ==================== WEATHER BACKGROUNDS ==================== */
+
+/* Clear Day */
+.weather-clear {
+  background: linear-gradient(180deg, 
+    #4A90D9 0%, 
+    #87CEEB 30%, 
+    #B4E1FF 60%,
+    #E8F4FF 100%
+  );
+  animation: clearSkyPulse 10s ease-in-out infinite;
+}
+
+@keyframes clearSkyPulse {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.05); }
+}
+
+/* Clear Night */
+.weather-clear.night {
+  background: linear-gradient(180deg, 
+    #0a0a1f 0%, 
+    #1a1a3e 30%, 
+    #2d2d5a 60%,
+    #3d3d6a 100%
+  );
+  animation: nightSkyTwinkle 8s ease-in-out infinite;
+}
+
+@keyframes nightSkyTwinkle {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.1); }
+}
+
+/* Partly Cloudy */
+.weather-partly-cloudy {
+  background: linear-gradient(180deg, 
+    #5a9fd4 0%, 
+    #87CEEB 30%, 
+    #a8d8ea 60%,
+    #d4e9f7 100%
+  );
+}
+
+.weather-partly-cloudy.night {
+  background: linear-gradient(180deg, 
+    #1a1a3e 0%, 
+    #2d2d5a 30%, 
+    #3d4d6a 60%,
+    #4d5d7a 100%
+  );
+}
+
+/* Cloudy */
+.weather-cloudy {
+  background: linear-gradient(180deg, 
+    #6b7b8c 0%, 
+    #8b9bac 30%, 
+    #a5b5c5 60%,
+    #c5d5e5 100%
+  );
+}
+
+.weather-cloudy.night {
+  background: linear-gradient(180deg, 
+    #2a3040 0%, 
+    #3a4050 30%, 
+    #4a5060 60%,
+    #5a6070 100%
+  );
+}
+
+/* Rain */
+.weather-rain,
+.weather-drizzle {
+  background: linear-gradient(180deg, 
+    #4a5568 0%, 
+    #5a6578 30%, 
+    #718096 60%,
+    #a0aec0 100%
+  );
+}
+
+.weather-rain.night,
+.weather-drizzle.night {
+  background: linear-gradient(180deg, 
+    #1a202c 0%, 
+    #2d3748 30%, 
+    #3a4558 60%,
+    #4a5568 100%
+  );
+}
+
+/* Heavy Rain */
+.weather-heavy-rain {
+  background: linear-gradient(180deg, 
+    #2d3748 0%, 
+    #3a4050 30%, 
+    #4a5060 60%,
+    #5a6070 100%
+  );
+}
+
+.weather-heavy-rain.night {
+  background: linear-gradient(180deg, 
+    #0d1117 0%, 
+    #161b22 30%, 
+    #21262d 60%,
+    #30363d 100%
+  );
+}
+
+/* Thunderstorm */
+.weather-thunderstorm {
+  background: linear-gradient(180deg, 
+    #1a1a2e 0%, 
+    #2a2a4e 30%, 
+    #3a3a5e 60%,
+    #4a4a6e 100%
+  );
+  animation: stormyPulse 4s ease-in-out infinite;
+}
+
+@keyframes stormyPulse {
+  0%, 100% { filter: brightness(0.8); }
+  50% { filter: brightness(1); }
+}
+
+.weather-thunderstorm.night {
+  background: linear-gradient(180deg, 
+    #0a0a15 0%, 
+    #15152a 30%, 
+    #20203f 60%,
+    #2a2a54 100%
+  );
+}
+
+/* Snow */
+.weather-snow,
+.weather-heavy-snow {
+  background: linear-gradient(180deg, 
+    #b8c6d6 0%, 
+    #c8d6e6 30%, 
+    #d8e6f6 60%,
+    #e8f4ff 100%
+  );
+}
+
+.weather-snow.night,
+.weather-heavy-snow.night {
+  background: linear-gradient(180deg, 
+    #2a3a4a 0%, 
+    #3a4a5a 30%, 
+    #4a5a6a 60%,
+    #5a6a7a 100%
+  );
+}
+
+/* Fog */
+.weather-fog {
+  background: linear-gradient(180deg, 
+    #9ca3af 0%, 
+    #b0b7bf 30%, 
+    #c4cad2 60%,
+    #d8dee6 100%
+  );
+}
+
+.weather-fog.night {
+  background: linear-gradient(180deg, 
+    #3a3a4a 0%, 
+    #4a4a5a 30%, 
+    #5a5a6a 60%,
+    #6a6a7a 100%
+  );
+}
+
+/* ==================== SUN EFFECTS ==================== */
+.sun-container {
+  position: absolute;
+  top: 5%;
+  right: 15%;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+  z-index: 1;
+}
+
+.sun-container.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.sun {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.sun-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle, #fff9c4 0%, #ffeb3b 50%, #ffc107 100%);
+  border-radius: 50%;
+  box-shadow: 
+    0 0 60px #ffeb3b,
+    0 0 100px #ffc107,
+    0 0 150px rgba(255, 193, 7, 0.5);
+  animation: sunPulse 4s ease-in-out infinite;
+}
+
+@keyframes sunPulse {
+  0%, 100% { 
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 0 60px #ffeb3b, 0 0 100px #ffc107, 0 0 150px rgba(255, 193, 7, 0.5);
+  }
+  50% { 
+    transform: translate(-50%, -50%) scale(1.05);
+    box-shadow: 0 0 80px #ffeb3b, 0 0 120px #ffc107, 0 0 180px rgba(255, 193, 7, 0.6);
+  }
+}
+
+.sun-rays {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  animation: sunRaysSpin 60s linear infinite;
+}
+
+@keyframes sunRaysSpin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.sun-ray {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 60px;
+  background: linear-gradient(to top, transparent, rgba(255, 235, 59, 0.6));
+  transform-origin: center bottom;
+  animation: rayPulse 2s ease-in-out infinite;
+}
+
+@keyframes rayPulse {
+  0%, 100% { opacity: 0.6; height: 60px; }
+  50% { opacity: 1; height: 70px; }
+}
+
+/* God Rays */
+.god-rays {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  height: 400px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.god-ray {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 4px;
+  height: 400px;
+  background: linear-gradient(to bottom, rgba(255, 235, 59, 0.4), transparent);
+  transform-origin: top center;
+  animation: godRayMove 8s ease-in-out infinite;
+  filter: blur(3px);
+}
+
+.god-ray:nth-child(1) { transform: translateX(-50%) rotate(-20deg); }
+.god-ray:nth-child(2) { transform: translateX(-50%) rotate(-10deg); animation-delay: 0.5s; }
+.god-ray:nth-child(3) { transform: translateX(-50%) rotate(0deg); animation-delay: 1s; }
+.god-ray:nth-child(4) { transform: translateX(-50%) rotate(10deg); animation-delay: 1.5s; }
+.god-ray:nth-child(5) { transform: translateX(-50%) rotate(20deg); animation-delay: 2s; }
+
+@keyframes godRayMove {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+/* ==================== MOON EFFECTS ==================== */
+.moon-container {
+  position: absolute;
+  top: 8%;
+  right: 18%;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+  z-index: 1;
+}
+
+.moon-container.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.moon {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 50%, #c0c0c0 100%);
+  border-radius: 50%;
+  box-shadow: 
+    0 0 40px rgba(255, 255, 255, 0.3),
+    0 0 80px rgba(255, 255, 255, 0.2),
+    inset -10px -10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.moon-crater {
+  position: absolute;
+  background: rgba(150, 150, 150, 0.3);
+  border-radius: 50%;
+}
+
+.crater-1 { width: 15px; height: 15px; top: 15px; left: 20px; }
+.crater-2 { width: 10px; height: 10px; top: 40px; left: 45px; }
+.crater-3 { width: 8px; height: 8px; top: 55px; left: 25px; }
+
+.moon-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  animation: moonGlow 4s ease-in-out infinite;
+}
+
+@keyframes moonGlow {
+  0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+/* ==================== STARS ==================== */
+.stars-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+  pointer-events: none;
+}
+
+.stars-container.visible {
+  opacity: 1;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+.star:nth-child(odd) {
+  width: 3px;
+  height: 3px;
+  box-shadow: 0 0 4px white;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* ==================== CLOUDS ==================== */
+.clouds-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.cloud {
+  position: absolute;
+  left: -200px;
+  animation: cloudMove linear infinite;
+  filter: blur(1px);
+}
+
+@keyframes cloudMove {
+  from { left: -200px; }
+  to { left: calc(100% + 200px); }
+}
+
+.cloud-part {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+}
+
+.cloud-main {
+  width: 100px;
+  height: 60px;
+  border-radius: 30px;
+}
+
+.cloud-left {
+  width: 50px;
+  height: 50px;
+  top: 10px;
+  left: -25px;
+}
+
+.cloud-right {
+  width: 60px;
+  height: 60px;
+  top: 5px;
+  right: -30px;
+}
+
+.cloud-1 .cloud-part { background: rgba(255, 255, 255, 0.9); }
+.cloud-2 .cloud-part { background: rgba(240, 240, 240, 0.85); }
+.cloud-3 .cloud-part { background: rgba(220, 220, 220, 0.8); }
+
+.night .cloud-part {
+  background: rgba(60, 60, 80, 0.7);
+}
+
+.weather-thunderstorm .cloud-part,
+.weather-heavy-rain .cloud-part {
+  background: rgba(80, 80, 100, 0.9);
+}
+
+/* ==================== RAIN EFFECTS ==================== */
+.rain-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.rain-drop {
+  position: absolute;
+  top: -20px;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, rgba(174, 194, 224, 0.8));
+  border-radius: 0 0 2px 2px;
+  animation: rainFall linear infinite;
+}
+
+.rain-drop.intensity-1 {
+  height: 15px;
+  opacity: 0.4;
+}
+
+.rain-drop.intensity-2 {
+  height: 20px;
+  opacity: 0.6;
+}
+
+.rain-drop.intensity-3 {
+  height: 25px;
+  opacity: 0.8;
+}
+
+@keyframes rainFall {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) translateX(20px);
+    opacity: 0;
+  }
+}
+
+.weather-thunderstorm .rain-drop {
+  animation-name: stormyRainFall;
+}
+
+@keyframes stormyRainFall {
+  0% {
+    transform: translateY(0) translateX(0) rotate(15deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) translateX(50px) rotate(15deg);
+    opacity: 0;
+  }
+}
+
+/* ==================== SNOW EFFECTS ==================== */
+.snow-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.snow-flake {
+  position: absolute;
+  top: -10px;
+  background: white;
+  border-radius: 50%;
+  animation: snowFall linear infinite;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+.snow-flake.size-1 {
+  width: 4px;
+  height: 4px;
+  opacity: 0.6;
+}
+
+.snow-flake.size-2 {
+  width: 6px;
+  height: 6px;
+  opacity: 0.8;
+}
+
+.snow-flake.size-3 {
+  width: 8px;
+  height: 8px;
+  opacity: 1;
+}
+
+@keyframes snowFall {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) translateX(50px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* ==================== LIGHTNING ==================== */
+.lightning {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  pointer-events: none;
+  transition: background 0.05s;
+  z-index: 10;
+}
+
+.lightning.flash {
+  background: rgba(255, 255, 255, 0.9);
+  animation: lightningFlash 0.1s ease-out;
+}
+
+@keyframes lightningFlash {
+  0% { background: rgba(255, 255, 255, 0.9); }
+  50% { background: rgba(255, 255, 255, 0.5); }
+  100% { background: transparent; }
+}
+
+/* ==================== FOG EFFECTS ==================== */
+.fog-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.fog-layer {
+  position: absolute;
+  width: 200%;
+  height: 100%;
+  left: -50%;
+}
+
+.fog-depth-1 {
+  top: 60%;
+  animation: fogMove1 25s linear infinite;
+  opacity: 0.8;
+}
+
+.fog-depth-2 {
+  top: 40%;
+  animation: fogMove2 35s linear infinite;
+  opacity: 0.5;
+}
+
+.fog-depth-3 {
+  top: 20%;
+  animation: fogMove3 45s linear infinite;
+  opacity: 0.3;
+}
+
+.fog-wave {
+  position: absolute;
+  width: 100%;
+  height: 150px;
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.6), transparent);
+  filter: blur(30px);
+}
+
+.fog-wave-1 { left: 0; }
+.fog-wave-2 { left: 33%; animation-delay: 2s; }
+.fog-wave-3 { left: 66%; animation-delay: 4s; }
+
+@keyframes fogMove1 {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(50%); }
+}
+
+@keyframes fogMove2 {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-30%); }
+}
+
+@keyframes fogMove3 {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(40%); }
+}
+
+.night .fog-wave {
+  background: linear-gradient(to top, rgba(100, 100, 120, 0.6), transparent);
+}
+
+/* ==================== RIPPLE EFFECTS ==================== */
+.ripples-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ripple {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: rippleExpand 1s ease-out forwards;
+}
+
+@keyframes rippleExpand {
+  0% {
+    width: 10px;
+    height: 10px;
+    opacity: 1;
+  }
+  100% {
+    width: 150px;
+    height: 150px;
+    opacity: 0;
+  }
+}
+
+/* ==================== WIND EFFECTS ==================== */
+.wind-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.wind-streak {
+  position: absolute;
+  left: -100px;
+  width: 100px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: windMove linear infinite;
+}
+
+@keyframes windMove {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(100vw + 200px));
+  }
+}
+
+/* ==================== RESPONSIVE ADJUSTMENTS ==================== */
+@media (max-width: 768px) {
+  .sun {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .sun-core {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .sun-rays {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .sun-ray {
+    height: 40px;
+  }
+  
+  .moon {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .god-rays {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .god-ray {
+    height: 200px;
+  }
+}
+
+/* ==================== PERFORMANCE OPTIMIZATIONS ==================== */
+@media (prefers-reduced-motion: reduce) {
+  .rain-drop,
+  .snow-flake,
+  .cloud,
+  .sun-rays,
+  .god-ray,
+  .fog-wave,
+  .wind-streak,
+  .star {
+    animation: none;
+  }
+  
+  .weather-bg {
+    transition: none;
+  }
+}
+
+/* Hardware acceleration hints */
+.rain-drop,
+.snow-flake,
+.cloud,
+.fog-layer,
+.wind-streak {
+  will-change: transform;
+  backface-visibility: hidden;
+}
