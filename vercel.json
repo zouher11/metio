@@ -1,0 +1,11 @@
+{
+  "buildCommand": "cd frontend && npm install && npm run build",
+  "outputDirectory": "frontend/build",
+  "installCommand": "npm install",
+  "rewrites": [
+    { "source": "/api/weather/current", "destination": "/api/weather/current" },
+    { "source": "/api/weather/forecast", "destination": "/api/weather/forecast" },
+    { "source": "/api/health", "destination": "/api/health" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
